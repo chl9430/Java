@@ -1,3 +1,6 @@
+/**
+ * 특성(속성). 불 → 풀 → 물 → 불 순서로 상성이 있다.
+ */
 public enum Element {
     FIRE("불"), WATER("물"), GRASS("풀");
 
