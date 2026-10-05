@@ -1,4 +1,6 @@
-import java.util.Random;
+package unit;
+
+import battle.DamagePolicy;
 
 /**
  * 스킬 = 이름 + MP 소모량 + 효과(람다)
@@ -17,8 +19,8 @@ public class Skill {
     public String getName() { return name; }
     public int getMpCost() { return mpCost; }
 
-    public int use(Hero user, Monster target, Random random) {
-        return effect.apply(user, target, random);
+    public int use(Hero user, Monster target, DamagePolicy policy) {
+        return effect.apply(user, target, policy);
     }
 
     @Override

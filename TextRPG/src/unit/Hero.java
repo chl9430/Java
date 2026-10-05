@@ -1,6 +1,12 @@
+package unit;
+
+import battle.DamagePolicy;
+import common.GameException;
+import item.Inventory;
+import item.Item;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * 플레이어 캐릭터의 공통 부모 (추상 클래스)
@@ -56,14 +62,14 @@ public abstract class Hero extends Unit {
     }
 
     /** 스킬 사용. MP가 부족하면 예외 */
-    public int useSkill(int index, Monster target, Random random) {
+    public int useSkill(int index, Monster target, DamagePolicy policy) {
         Skill skill = skills.get(index);
         if (mp < skill.getMpCost()) {
             throw new GameException("MP가 부족합니다.");
         }
         mp -= skill.getMpCost();
         System.out.println(getName() + "의 " + skill.getName() + "!");
-        return skill.use(this, target, random);
+        return skill.use(this, target, policy);
     }
 
     public int restoreMp(int amount) {

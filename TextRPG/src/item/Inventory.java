@@ -1,3 +1,7 @@
+package item;
+
+import common.GameException;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -21,6 +25,11 @@ public class Inventory {
     public Item remove(int index) { return items.remove(index); }
     public int size() { return items.size(); }
     public boolean isEmpty() { return items.isEmpty(); }
+
+    /** 종류별 개수 (Stream) */
+    public long count(ItemType type) {
+        return items.stream().filter(i -> i.getType() == type).count();
+    }
 
     /** Item의 compareTo 기준으로 정렬 */
     public void sort() {

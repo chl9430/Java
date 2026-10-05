@@ -1,3 +1,5 @@
+package item;
+
 /**
  * 아이템. 필드는 private, 값은 getter로만 읽는다.
  * Comparable: 종류 순 → 같은 종류면 power 큰 순으로 정렬

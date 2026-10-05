@@ -1,3 +1,5 @@
+package unit;
+
 /**
  * 전사: 체력과 방어가 높다
  */
@@ -7,14 +9,14 @@ public final class Warrior extends Hero {
         super(name, element, 130, 30, 13, 5);
 
         // 강타: 공격력 2배
-        addSkill(new Skill("강타", 8, (user, target, random) ->
-                Battle.damage(user.getAtk() * 2, target.getDef(),
-                        user.getElement(), target.getElement(), random)));
+        addSkill(new Skill("강타", 8, (user, target, policy) ->
+                policy.damage(user.getAtk() * 2, target.getDef(),
+                        user.getElement(), target.getElement())));
 
         // 흡혈 베기: 1.5배 공격 + 준 피해의 절반 회복
-        addSkill(new Skill("흡혈 베기", 12, (user, target, random) -> {
-            int dmg = Battle.damage(user.getAtk() * 3 / 2, target.getDef(),
-                    user.getElement(), target.getElement(), random);
+        addSkill(new Skill("흡혈 베기", 12, (user, target, policy) -> {
+            int dmg = policy.damage(user.getAtk() * 3 / 2, target.getDef(),
+                    user.getElement(), target.getElement());
             System.out.println("HP " + user.heal(dmg / 2) + " 흡수!");
             return dmg;
         }));
