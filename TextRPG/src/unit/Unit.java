@@ -1,5 +1,10 @@
 package unit;
 
+import status.StatusEffect;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Hero와 Monster의 공통 부모 (추상 클래스)
  * - 2일차에 두 클래스에 중복되던 필드와 메서드를 모았다
@@ -10,6 +15,7 @@ public abstract class Unit {
     private final Element element;
     protected int maxHp;
     private int hp;
+    private final List<StatusEffect> effects = new ArrayList<>();
     protected int atk;
     protected int def;
 
@@ -31,6 +37,20 @@ public abstract class Unit {
     /** 자식 클래스가 재정의할 수 있다 (Hero: 무기 공격력 추가) */
     public int getAtk() { return atk; }
     public int getDef() { return def; }
+
+    public void addEffect(StatusEffect effect) {
+        effects.add(effect);
+    }
+
+    /** 턴 시작: 상태이상을 적용하고, 이번 턴에 행동할 수 있는지 돌려준다 */
+    public boolean startTurn() {
+        boolean canAct = true;
+        for (StatusEffect e : effects) {
+            if (!e.onTurnStart(this)) canAct = false;
+        }
+        effects.removeIf(StatusEffect::isExpired);
+        return canAct;
+    }
 
     public boolean isAlive() {
         return hp > 0;

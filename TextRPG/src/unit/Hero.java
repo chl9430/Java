@@ -46,6 +46,7 @@ public abstract class Hero extends Unit {
     public List<Skill> getSkills() { return skills; }
     public Inventory getInventory() { return inventory; }
     public int getLevel() { return level; }
+    public int getExp() { return exp; }
     public int getMp() { return mp; }
 
     /** 부모의 공격력 + 무기 공격력 */
@@ -124,6 +125,16 @@ public abstract class Hero extends Unit {
                 System.out.println("MP " + restoreMp(item.getPower()) + " 회복!");
             }
         }
+    }
+
+    /** 저장된 레벨·경험치로 복원 (레벨 1에서 성장만 반복 적용) */
+    public void restore(int savedLevel, int savedExp) {
+        while (level < savedLevel) {
+            level++;
+            growStats();
+        }
+        exp = savedExp;
+        rest();
     }
 
     public void showStatus() {

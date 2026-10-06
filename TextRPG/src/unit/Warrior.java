@@ -1,5 +1,7 @@
 package unit;
 
+import status.Stun;
+
 /**
  * 전사: 체력과 방어가 높다
  */
@@ -19,6 +21,14 @@ public final class Warrior extends Hero {
                     user.getElement(), target.getElement());
             System.out.println("HP " + user.heal(dmg / 2) + " 흡수!");
             return dmg;
+        }));
+
+        // 방패 강타: 공격 + 1턴 기절
+        addSkill(new Skill("방패 강타", 10, (user, target, policy) -> {
+            target.addEffect(new Stun(1));
+            System.out.println(target.getName() + "이(가) 기절했다!");
+            return policy.damage(user.getAtk(), target.getDef(),
+                    user.getElement(), target.getElement());
         }));
     }
 
